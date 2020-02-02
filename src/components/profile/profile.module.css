@@ -1,0 +1,12 @@
+.Profile {
+  display: grid;
+  color: aliceblue;
+}
+
+.Profile img {
+  width: 20px;
+}
+
+.userPosts {
+  display: grid;
+}
