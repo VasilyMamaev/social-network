@@ -1,3 +1,5 @@
+import renderEntireTree from "../render"
+
 let state = {
   dialogs: {
     dialogsElements: [
@@ -27,8 +29,20 @@ let state = {
       'сходил покакац',
       'никуда не ходил'
     ]
+  },
+
+  addMessage (textMessage) {
+    state.dialogs.messages.push(textMessage)
+    renderEntireTree(state)
+  },
+
+  addPost (textPost) {
+    state.profile.userPosts.push(textPost)
+    renderEntireTree(state)
   }
 }
 
 
 export default state
+
+

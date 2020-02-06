@@ -8,14 +8,22 @@ const Profile = (props) => {
   return <div className={classes.userPosts}>{ post }</div>
   })
 
+  let newPost = React.createRef()
+  let addPost = props.addPost
+  let newPostHandler = () => {
+    let text = newPost.current.value
+    addPost(text)
+    newPost.current.value = ''
+  }
+
   return (
     <body className={classes.Profile}>
       <div>
         <UserInfo state={props.state.userInfo} />
       </div>
       <div>
-        <input type="text" placeholder="What's new?"></input>
-        <button>send</button>
+        <input type="text" placeholder="What's new?" ref={newPost}></input>
+        <button onClick={newPostHandler}>send</button>
       </div>
       <div>
         { userPosts }

@@ -10,5 +10,5 @@
 }
 
 .Chat {
- color: #000;
+  display: grid;
 }
