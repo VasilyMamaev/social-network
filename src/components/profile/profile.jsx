@@ -10,10 +10,16 @@ const Profile = (props) => {
 
   let newPost = React.createRef()
   let addPost = props.addPost
+  let updatePost = props.updatePostText
+
   let newPostHandler = () => {
     let text = newPost.current.value
     addPost(text)
-    newPost.current.value = ''
+  }
+
+  let textChangeHandler = () => {
+    let text = newPost.current.value
+    updatePost(text)
   }
 
   return (
@@ -22,7 +28,12 @@ const Profile = (props) => {
         <UserInfo state={props.state.userInfo} />
       </div>
       <div>
-        <input type="text" placeholder="What's new?" ref={newPost}></input>
+        <input type="text"
+          value={props.state.newPostText}
+          placeholder="What's new?"
+          ref={newPost}
+          onChange={textChangeHandler}
+        ></input>
         <button onClick={newPostHandler}>send</button>
       </div>
       <div>

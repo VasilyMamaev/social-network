@@ -1,4 +1,6 @@
-import renderEntireTree from "../render"
+let renderEntireTree = () => {
+  
+}
 
 let state = {
   dialogs: {
@@ -14,7 +16,8 @@ let state = {
       'Привет. Вау! Это замечательно. Спасибо большое! Моя мама хотела сходить на Лебединое озеро. Будет ли 2 билета?',
       'Да. Я постараюсь найти еще один билет для твоей мамы. Есть на 21 и 23 июня. Подскажи, когда тебе удобно?',
       '23 июня будет отлично! Спасибо!Буду ждать новостей от тебя. Хорошего дня!'
-    ]
+    ],
+    newTextMessage: ''
   },
   profile: {
     userInfo: {
@@ -28,18 +31,35 @@ let state = {
       'сходил покушац',
       'сходил покакац',
       'никуда не ходил'
-    ]
+    ],
+    newPostText: ''
+  },
+
+  updateMessageText (text) {
+    state.dialogs.newTextMessage = text
+    renderEntireTree(state)
   },
 
   addMessage (textMessage) {
     state.dialogs.messages.push(textMessage)
+    state.dialogs.newTextMessage = ''
+    renderEntireTree(state)
+  },
+
+  updatePostText(text) {
+    state.profile.newPostText = text
     renderEntireTree(state)
   },
 
   addPost (textPost) {
     state.profile.userPosts.push(textPost)
+    state.profile.newPostText = ''
     renderEntireTree(state)
   }
+}
+
+export const subscribe = (observer) => {
+  renderEntireTree = observer
 }
 
 

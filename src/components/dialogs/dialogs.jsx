@@ -10,10 +10,16 @@ const Messages = (props) => {
 
   let newMessageElement = React.createRef()
   let sendMessage = props.addMessage
+  let updateText = props.updateMessageText
+
+  let updateTextHandler = () => {
+    let text = newMessageElement.current.value
+    updateText(text)
+  }
+
   let sendMessageHandler = () => {
     let message = newMessageElement.current.value
     sendMessage(message)
-    newMessageElement.current.value = ''
   }
 
   return (
@@ -23,7 +29,7 @@ const Messages = (props) => {
       </div>
       <div className={classes.Chat}>
         { chatElements }
-        <input type="text" placeholder="text message..." ref={newMessageElement}/>
+        <input type="text" placeholder="text message..." ref={newMessageElement} value={props.state.newTextMessage} onChange={updateTextHandler}/>
         <button onClick={ sendMessageHandler }>send</button>
       </div>
     </div>
