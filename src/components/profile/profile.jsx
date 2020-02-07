@@ -4,7 +4,9 @@ import UserInfo from './user-info/user-info'
 
 const Profile = (props) => {
 
-  let userPosts = props.state.userPosts.map((post) => {
+  let state = props.state.profile
+
+  let userPosts = state.userPosts.map((post) => {
   return <div className={classes.userPosts}>{ post }</div>
   })
 
@@ -25,11 +27,11 @@ const Profile = (props) => {
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo state={props.state.userInfo} />
+        <UserInfo state={state.userInfo} />
       </div>
       <div>
         <input type="text"
-          value={props.state.newPostText}
+          value={state.newPostText}
           placeholder="What's new?"
           ref={newPost}
           onChange={textChangeHandler}
