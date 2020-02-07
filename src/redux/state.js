@@ -26,45 +26,61 @@ let store = {
         web_site: 'https://github.com/VasilyMamaev'
       },
       userPosts: [
-        'сходил покушац',
-        'сходил покакац',
-        'никуда не ходил'
+        'Шёл сегодня с работы домой, на улице темнотища, иду с фонариком. Смотрю, впереди на снегу необычные образования. Пригляделся - следы :) По свежевыпавшему пушистому снегу прошлись, а потом ветер выдул весь снег, оставив только спрессованные ногами следы от ботинок. Впервые такое вижу.',
+        'Как-то стороной обходили Поль Бейкери, а оказывается там весьма неплохо.'
       ],
       newPostText: ''
   }},
-
   _callSubscriber () {},
 
   getState () {
     return this._state
   },
-
-  updateMessageText (text) {
-    this._state.dialogs.newTextMessage = text
-    this._callSubscriber(this._state)
-  },
-
-  addMessage (textMessage) {
-    this._state.dialogs.messages.push(textMessage)
-    this._state.dialogs.newTextMessage = ''
-    this._callSubscriber(this._state)
-  },
-
-  updatePostText(text) {
-    this._state.profile.newPostText = text
-    this._callSubscriber(this._state)
-  },
-
-  addPost (textPost) {
-    this._state.profile.userPosts.push(textPost)
-    this._state.profile.newPostText = ''
-    this._callSubscriber(this._state)
-  },
-
   subscriber (observer) {
     this._callSubscriber = observer
-  }
-  
+  },
+  dispatch (action) {
+    switch (action.type) {
+      case 'UPDATE-MESSAGE-TEXT':
+        this._state.dialogs.newTextMessage = action.text
+        this._callSubscriber(this._state)
+        break
+      case 'ADD-MESSAGE':
+        this._state.dialogs.messages.push(action.text)
+        this._state.dialogs.newTextMessage = ''
+        this._callSubscriber(this._state)
+        break
+      case 'UPDATE-POST-TEXT':
+        this._state.profile.newPostText = action.text
+        this._callSubscriber(this._state)
+        break
+      case 'ADD-POST':
+        this._state.profile.userPosts.push(action.text)
+        this._state.profile.newPostText = ''
+        this._callSubscriber(this._state)
+        break
+      default:
+        throw new SyntaxError ('Unexpected action')
+    }
+  },
+  // updateMessageText (text) {
+  //   this._state.dialogs.newTextMessage = text
+  //   this._callSubscriber(this._state)
+  // },
+  // addMessage (textMessage) {
+  //   this._state.dialogs.messages.push(textMessage)
+  //   this._state.dialogs.newTextMessage = ''
+  //   this._callSubscriber(this._state)
+  // },
+  // updatePostText(text) {
+  //   this._state.profile.newPostText = text
+  //   this._callSubscriber(this._state)
+  // },
+  // addPost (textPost) {
+  //   this._state.profile.userPosts.push(textPost)
+  //   this._state.profile.newPostText = ''
+  //   this._callSubscriber(this._state)
+  // }
 }
 
 

@@ -11,17 +11,17 @@ const Messages = (props) => {
   let chatElements = state.messages.map((message) => <Chat>{message}</Chat>)
 
   let newMessageElement = React.createRef()
-  let sendMessage = props.addMessage
-  let updateText = props.updateMessageText
 
   let updateTextHandler = () => {
     let text = newMessageElement.current.value
-    updateText(text)
+    let action = {type: 'UPDATE-MESSAGE-TEXT', text: text}
+    props.dispatch(action)
   }
 
   let sendMessageHandler = () => {
     let message = newMessageElement.current.value
-    sendMessage(message)
+    let action = {type: 'ADD-MESSAGE', text: message}
+    props.dispatch(action)
   }
 
   return (
