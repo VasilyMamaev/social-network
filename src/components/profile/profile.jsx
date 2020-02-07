@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
+import { updatePostTextActionCreator, addPostActionCreator } from '../../redux/state'
 
 const Profile = (props) => {
 
@@ -14,14 +15,12 @@ const Profile = (props) => {
 
   let newPostHandler = () => {
     let text = newPost.current.value
-    let action = {type: 'ADD-POST', text}
-    props.dispatch(action)
+    props.dispatch(addPostActionCreator(text))
   }
 
   let textChangeHandler = () => {
     let text = newPost.current.value
-    let action = {type: 'UPDATE-POST-TEXT', text}
-    props.dispatch(action)
+    props.dispatch(updatePostTextActionCreator(text))
   }
 
   return (

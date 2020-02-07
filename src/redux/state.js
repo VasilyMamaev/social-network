@@ -1,3 +1,12 @@
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
+const ADD_POST = 'ADD-POST'
+
+export let updateMessageTextActionCreator = (text) => ({type:UPDATE_MESSAGE_TEXT, text})
+export let addMessageActionCreator = (text) => ({type:ADD_MESSAGE, text})
+export let updatePostTextActionCreator = (text) => ({type:UPDATE_POST_TEXT, text})
+export let addPostActionCreator = (text) => ({type:ADD_POST, text})
 
 let store = {
   _state: { 
@@ -63,24 +72,6 @@ let store = {
         throw new SyntaxError ('Unexpected action')
     }
   },
-  // updateMessageText (text) {
-  //   this._state.dialogs.newTextMessage = text
-  //   this._callSubscriber(this._state)
-  // },
-  // addMessage (textMessage) {
-  //   this._state.dialogs.messages.push(textMessage)
-  //   this._state.dialogs.newTextMessage = ''
-  //   this._callSubscriber(this._state)
-  // },
-  // updatePostText(text) {
-  //   this._state.profile.newPostText = text
-  //   this._callSubscriber(this._state)
-  // },
-  // addPost (textPost) {
-  //   this._state.profile.userPosts.push(textPost)
-  //   this._state.profile.newPostText = ''
-  //   this._callSubscriber(this._state)
-  // }
 }
 
 
