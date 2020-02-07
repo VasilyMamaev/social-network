@@ -1,12 +1,5 @@
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
-const ADD_POST = 'ADD-POST'
-
-export let updateMessageTextActionCreator = (text) => ({type:UPDATE_MESSAGE_TEXT, text})
-export let addMessageActionCreator = (text) => ({type:ADD_MESSAGE, text})
-export let updatePostTextActionCreator = (text) => ({type:UPDATE_POST_TEXT, text})
-export let addPostActionCreator = (text) => ({type:ADD_POST, text})
+import profileReducer from "./profile-reducer"
+import dialogsReducer from "./dialogs-reducer"
 
 let store = {
   _state: { 
@@ -49,32 +42,12 @@ let store = {
     this._callSubscriber = observer
   },
   dispatch (action) {
-    switch (action.type) {
-      case 'UPDATE-MESSAGE-TEXT':
-        this._state.dialogs.newTextMessage = action.text
-        this._callSubscriber(this._state)
-        break
-      case 'ADD-MESSAGE':
-        this._state.dialogs.messages.push(action.text)
-        this._state.dialogs.newTextMessage = ''
-        this._callSubscriber(this._state)
-        break
-      case 'UPDATE-POST-TEXT':
-        this._state.profile.newPostText = action.text
-        this._callSubscriber(this._state)
-        break
-      case 'ADD-POST':
-        this._state.profile.userPosts.push(action.text)
-        this._state.profile.newPostText = ''
-        this._callSubscriber(this._state)
-        break
-      default:
-        throw new SyntaxError ('Unexpected action')
-    }
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action)
+    this._state.profile = profileReducer(this._state.profile, action)
+    
+    this._callSubscriber(this._state)
   },
 }
 
 
 export default store
-
-

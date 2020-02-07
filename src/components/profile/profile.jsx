@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
-import { updatePostTextActionCreator, addPostActionCreator } from '../../redux/state'
+import { updatePostTextActionCreator, addPostActionCreator } from '../../redux/profile-reducer'
 
 const Profile = (props) => {
 

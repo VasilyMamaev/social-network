@@ -15,4 +15,3 @@ const renderEntireTree = (state) => {
 renderEntireTree(store.getState())
 
 store.subscriber(renderEntireTree)
-
