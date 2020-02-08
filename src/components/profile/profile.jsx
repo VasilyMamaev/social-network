@@ -1,41 +1,25 @@
 import React from 'react'
 import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
-import { updatePostTextActionCreator, addPostActionCreator } from '../../redux/profile-reducer'
 
 const Profile = (props) => {
 
-  let state = props.state.profile
-
-  let userPosts = state.userPosts.map((post) => {
+  let userPosts = props.state.userPosts.map((post) => {
   return <div className={classes.userPosts}>{ post }</div>
   })
-
-  let newPost = React.createRef()
-
-  let newPostHandler = () => {
-    let text = newPost.current.value
-    props.dispatch(addPostActionCreator(text))
-  }
-
-  let textChangeHandler = () => {
-    let text = newPost.current.value
-    props.dispatch(updatePostTextActionCreator(text))
-  }
 
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo state={state.userInfo} />
+        <UserInfo state={props.state.userInfo} />
       </div>
       <div>
         <input type="text"
-          value={state.newPostText}
+          value={props.state.newPostText}
           placeholder="What's new?"
-          ref={newPost}
-          onChange={textChangeHandler}
+          onChange={props.onTextChange}
         ></input>
-        <button onClick={newPostHandler}>send</button>
+        <button onClick={props.onButtonClick}>send</button>
       </div>
       <div>
         { userPosts }

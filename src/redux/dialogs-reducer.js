@@ -24,8 +24,10 @@ let dialogsReducer = (state = initialState, action) => {
       state.newTextMessage = action.text
       return state
     case 'ADD-MESSAGE':
-      state.messages.push(action.text)
-      state.newTextMessage = ''
+      if (state.newTextMessage !== '') {
+        state.messages.push(state.newTextMessage)
+        state.newTextMessage = ''
+      }
       return state
     default: 
       return state

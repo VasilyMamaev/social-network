@@ -23,8 +23,10 @@ let profileReducer = (state = initialState, action) => {
       state.newPostText = action.text
       return state
     case 'ADD-POST':
-      state.userPosts.push(action.text)
-      state.newPostText = ''
+      if (state.newPostText !== '') {
+        state.userPosts.push(state.newPostText)
+        state.newPostText = ''
+      }
       return state
     default:
       return state
