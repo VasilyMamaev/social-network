@@ -3,26 +3,26 @@ import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
 
 const Profile = (props) => {
-
-  let userPosts = props.state.userPosts.map((post) => {
+console.log(props)
+  let Posts = props.userPosts.map((post) => {
   return <div className={classes.userPosts}>{ post }</div>
   })
 
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo state={props.state.userInfo} />
+        <UserInfo state={props.userInfo} />
       </div>
       <div>
         <input type="text"
-          value={props.state.newPostText}
+          value={props.newPostText}
           placeholder="What's new?"
-          onChange={props.onTextChange}
+          onChange={props.textChangeHandler}
         ></input>
-        <button onClick={props.onButtonClick}>send</button>
+        <button onClick={props.newPostHandler}>send</button>
       </div>
       <div>
-        { userPosts }
+        { Posts }
       </div>
     </body>
   )

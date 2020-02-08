@@ -5,8 +5,8 @@ import Chat from './chat/chat'
 
 const Dialogs = (props) => {
 
-  let dialogsElements = props.state.dialogsElements.map((dialog) => <DialogItem name={dialog.name} id={dialog.id} />)
-  let chatElements = props.state.messages.map((message) => <Chat>{message}</Chat>)
+  let dialogsElements = props.dialogsElements.map((dialog) => <DialogItem name={dialog.name} id={dialog.id} />)
+  let chatElements = props.messages.map((message) => <Chat>{message}</Chat>)
 
   return (
     <div className={classes.Dialogs}>
@@ -15,8 +15,8 @@ const Dialogs = (props) => {
       </div>
       <div className={classes.Chat}>
         { chatElements }
-        <input type="text" placeholder="text message..." value={props.state.newTextMessage} onChange={props.onTextChange}/>
-        <button onClick={props.onButtonClick}>send</button>
+        <input type="text" placeholder="text message..." value={props.newTextMessage} onChange={props.updateTextHandler}/>
+        <button onClick={props.sendMessageHandler}>send</button>
       </div>
     </div>
   )
