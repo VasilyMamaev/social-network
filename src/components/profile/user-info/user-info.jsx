@@ -5,7 +5,7 @@ const UserInfo = (props) => {
   return (
     <div className={classes.UserInfo}>
       <div>
-        <img src={props.avatar} alt="avatar"/>
+        <img src={props.state.avatar} alt="avatar"/>
         <span>edit</span>
       </div>
       <div>

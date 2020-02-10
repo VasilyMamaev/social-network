@@ -23,7 +23,7 @@ const initialState = {
       id: 3,
       followed: false,
       avatar: 'http://www.sarkidunyasi.com/img/21/93/daft-punk-300x214.jpg',
-      firstName: 'Стеша',
+      firstName: 'Cтеша',
       location: {city: 'Екатеринбург', country: 'Россия'},
       userStatus: 'голод'
     },
@@ -40,8 +40,14 @@ let usersReducer = (state = initialState, action) => {
     case 'FOLLOW':
       return {
         ...state,
-        followed: (!action.follow)}
-    default: return state
+        users: state.users.map((user) => {
+          if (user.id === action.id) {
+            return {...user, followed: (!user.followed)}
+          }
+          return user
+          })}
+    default: 
+      return state
   }
 }
 

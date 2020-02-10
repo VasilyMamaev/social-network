@@ -10,11 +10,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    addUsersHandler: () => {
-      dispatch(showMoreActionCreator())
+    addUsersHandler: (users) => {
+      dispatch(showMoreActionCreator(users))
     },
-    followHandler: () => {
-      dispatch(followActionCreator())
+    followHandler: (userId, follow) => {
+      dispatch(followActionCreator(userId, follow))
     }
   }
  }
