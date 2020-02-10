@@ -4,10 +4,11 @@ import Header from './components/header/header'
 import Navbar from './components/navbar/navbar'
 import News from './components/news/news'
 import Music from './components/music/music'
-import Settings from './components/settings/settings'
+//import Settings from './components/settings/settings'
 import {Route} from 'react-router-dom'
 import ProfileContainer from './components/profile/profile-container'
 import DialogsContainer from './components/dialogs/dialogs-container'
+import UsersContainer from './components/users/users-container'
 
 
 function App(props) {
@@ -20,7 +21,7 @@ function App(props) {
             <Route path="/Dialogs" render={() => <DialogsContainer />}/>
             <Route path="/News" render={News}/>
             <Route path="/Music" render={Music}/>
-            <Route path="/Settings" render={Settings}/>
+            <Route path="/Users" render={() => <UsersContainer />}/>
           </div>
         </div>
   );

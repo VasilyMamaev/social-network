@@ -1,7 +1,10 @@
+const SHOW_MORE = 'SHOW_MORE'
+const FOLLOW = 'FOLLOW'
 
 const initialState = {
   users: [
     {
+      id: 1,
       followed: true,
       avatar: 'http://www.sarkidunyasi.com/img/21/93/daft-punk-300x214.jpg',
       firstName: 'Настя',
@@ -9,6 +12,7 @@ const initialState = {
       userStatus: 'всем привет'
     },
     {
+      id: 2,
       followed: true,
       avatar: 'http://www.sarkidunyasi.com/img/21/93/daft-punk-300x214.jpg',
       firstName: 'Вася',
@@ -16,6 +20,7 @@ const initialState = {
       userStatus: 'не беспокоить'
     },
     {
+      id: 3,
       followed: false,
       avatar: 'http://www.sarkidunyasi.com/img/21/93/daft-punk-300x214.jpg',
       firstName: 'Стеша',
@@ -25,9 +30,23 @@ const initialState = {
   ]
 }
 
-let usersReducer (state = initialState, action) => {
+let usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SHOW_MORE'
+    case 'SHOW_MORE':
+      return {
+        ...state,
+        users: [...state.users, action.users] 
+      }
+    case 'FOLLOW':
+      return {
+        ...state,
+        followed: (!action.follow)}
+    default: return state
   }
 }
+
+export const showMoreActionCreator = (users) => ({type: SHOW_MORE, users})
+export const followActionCreator = (userId, follow) => ({type: FOLLOW, follow, id: userId})
+
+export default usersReducer
 
