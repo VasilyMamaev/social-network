@@ -1,27 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
 import User from './user/user'
+import * as axios from 'axios'
+import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
 
-function Users(props) {
+class Users extends Component {
 
+  constructor (props) {
+    super(props)
+    if (props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {this.props.addUsersHandler(response.data.items)})
+    }
+
+  }
+
+  render () {
+    console.log(this.props)
   return (
     <div>
       <div>
-        { props.users.map(user => <User 
+        { this.props.users.map(user => <User 
     key={user.id}
-    follow={() => props.followHandler(user.id, user.fllowed)}
-    avatar={user.avatar}
+    follow={() => this.props.followHandler(user.id, user.fllowed)}
+    avatar={(user.photos.small !== null) ? user.photos.small : noAvatarImg }
     fllowed={user.fllowed}
-    name={user.firstName}
-    userStatus={user.userStatus}
-    city={user.location.city}
-    country={user.location.country} 
+    name={user.name}
+    userStatus={user.status}
+    city={'user.location.city'}
+    country={'user.location.country'} 
   />) }
       </div>
       <div>
-        <button onClick={() => props.addUsersHandler()}>Show more</button>
+        <button onClick={() => this.props.addUsersHandler()}>Show more</button>
       </div>
     </div>
   )
+}
 }
 
 export default Users

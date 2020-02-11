@@ -3,7 +3,6 @@ import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
 
 const Profile = (props) => {
-console.log(props)
   let Posts = props.userPosts.map((post) => {
   return <div className={classes.userPosts}>{ post }</div>
   })
