@@ -2,21 +2,47 @@ import React, { Component } from 'react'
 import User from './user/user'
 import * as axios from 'axios'
 import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
+import classes from './users.module.css'
 
 class Users extends Component {
 
-  constructor (props) {
-    super(props)
-    if (props.users.length === 0) {
-      axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {this.props.addUsersHandler(response.data.items)})
+  componentDidMount() {
+    if (this.props.users.length === 0) {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`).then((response) => {
+        this.props.addUsersHandler(response.data.items, response.data.totalCount)
+      })
     }
+  }
 
+  onPageClick = (page) => {
+    this.props.changePageHandler(page)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`).then((response) => {
+      this.props.changePageUsersHandler(response.data.items)
+    })
   }
 
   render () {
-    console.log(this.props)
+
+  let pagesCount = Math.ceil(this.props.totalCount / this.props.usersAtPageCount)
+
+  let pages = []
+
+  for (let i = 1; i <= pagesCount; i++ ) {
+    pages.push(i)
+  }
+
+
   return (
     <div>
+      <div>
+        { pages.map((page) => {
+          return <span 
+            key={page}
+            className={page === this.props.currentPage ? classes.selectedPage : null}
+            onClick={() => {this.onPageClick(page)}}
+          >{page}</span>
+        }) }
+      </div>
       <div>
         { this.props.users.map(user => <User 
     key={user.id}
