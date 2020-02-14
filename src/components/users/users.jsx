@@ -2,6 +2,7 @@ import React from 'react'
 import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
 import classes from './users.module.css'
 import User from './user/user'
+import loadingImg from '../../assets/ainmation/loading-cube.svg'
 
 function Users(props) {
 
@@ -15,6 +16,7 @@ function Users(props) {
 
   return (
     <div>
+      { props.isFetching ? <img src={loadingImg} alt='loading'/> : <>
       <div>
         { pages.map((page) => {
           return <span 
@@ -39,6 +41,7 @@ function Users(props) {
       <div>
         <button onClick={() => props.addUsersHandler()}>Show more</button>
       </div>
+</>}
     </div>
   )
 }
