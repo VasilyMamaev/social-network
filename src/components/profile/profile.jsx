@@ -3,14 +3,14 @@ import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
 
 const Profile = (props) => {
-  let Posts = props.userPosts.map((post) => {
-  return <div className={classes.userPosts}>{ post }</div>
+  let Posts = props.userPosts.map((post, i) => {
+  return <div key={i} className={classes.userPosts}>{ post }</div>
   })
 
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo state={props.userInfo} />
+        <UserInfo userInfo={props.userInfo} />
       </div>
       <div>
         <input type="text"

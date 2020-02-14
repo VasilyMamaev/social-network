@@ -9,6 +9,6 @@ let rootReducer = combineReducers({
   users: usersReducer
 })
 
-let store = createStore(rootReducer)
+let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 export default store

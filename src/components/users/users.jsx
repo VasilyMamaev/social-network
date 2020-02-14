@@ -2,7 +2,8 @@ import React from 'react'
 import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
 import classes from './users.module.css'
 import User from './user/user'
-import loadingImg from '../../assets/ainmation/loading-cube.svg'
+import Loader from '../ui/loader/loader'
+
 
 function Users(props) {
 
@@ -13,10 +14,11 @@ function Users(props) {
   for (let i = 1; i <= pagesCount; i++ ) {
     pages.push(i)
   }
+  console.log(props)
 
   return (
     <div>
-      { props.isFetching ? <img src={loadingImg} alt='loading'/> : <>
+      { props.isFetching ? <Loader/> : <>
       <div>
         { pages.map((page) => {
           return <span 
@@ -29,6 +31,7 @@ function Users(props) {
       <div>
         { props.users.map(user => <User 
     key={user.id}
+    id={user.id}
     follow={() => props.followHandler(user.id, user.fllowed)}
     avatar={(user.photos.small !== null) ? user.photos.small : noAvatarImg }
     fllowed={user.fllowed}

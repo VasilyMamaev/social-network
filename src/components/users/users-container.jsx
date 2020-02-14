@@ -8,20 +8,20 @@ class UsersContainer extends Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
-      this.props.changeLoadingViewHandler()
+      this.props.changeLoadingViewHandler(true)
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`).then((response) => {
         this.props.addUsersHandler(response.data.items, response.data.totalCount)
-        this.props.changeLoadingViewHandler()
+        this.props.changeLoadingViewHandler(false)
       })
     }
   }
 
   onPageClick = (page) => {
-    this.props.changeLoadingViewHandler()
+    this.props.changeLoadingViewHandler(true)
     this.props.changePageHandler(page)
     axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`).then((response) => {
       this.props.changePageUsersHandler(response.data.items)
-      this.props.changeLoadingViewHandler()
+      this.props.changeLoadingViewHandler(false)
     })
   }
 
@@ -49,24 +49,11 @@ let mapStateToProps = (state) => {
  }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addUsersHandler: (users, totalCount) => {
-      dispatch(showMoreActionCreator(users, totalCount))
-    },
-    followHandler: (userId, follow) => {
-      dispatch(followActionCreator(userId, follow))
-    },
-    changePageHandler: (page) => {
-      dispatch(changePageActionCreator(page))
-    },
-    changePageUsersHandler: (users) => {
-      dispatch(changePageUsersActionCreator(users))
-    },
-    changeLoadingViewHandler: () => {
-      dispatch(isFetchingTogglerActionCreator())
-    }
-  }
- }
 
-export default connect(mapStateToProps, mapDispatchToProps) (UsersContainer)
+export default connect(mapStateToProps, {
+  addUsersHandler: showMoreActionCreator,
+  followHandler: followActionCreator,
+  changePageHandler: changePageActionCreator,
+  changePageUsersHandler: changePageUsersActionCreator,
+  changeLoadingViewHandler: isFetchingTogglerActionCreator
+}) (UsersContainer)

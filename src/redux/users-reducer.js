@@ -45,7 +45,7 @@ let usersReducer = (state = initialState, action) => {
     case 'IS_FETCHING_TOGGLER':
     return {
       ...state,
-      isFetching: !state.isFetching 
+      isFetching: action.isFetching 
     }
     case 'FOLLOW':
       return {
@@ -65,7 +65,7 @@ export const showMoreActionCreator = (users, totalCount) => ({type: ADD_USERS, u
 export const followActionCreator = (userId, follow) => ({type: FOLLOW, follow, id: userId})
 export const changePageActionCreator = (page) => ({type: ADD_PAGE, page})
 export const changePageUsersActionCreator = (users) => ({type: CHANGE_PAGE_USERS, users})
-export const isFetchingTogglerActionCreator = () => ({type: IS_FETCHING_TOGGLER})
+export const isFetchingTogglerActionCreator = (isFetching) => ({type: IS_FETCHING_TOGGLER, isFetching})
 
 
 export default usersReducer

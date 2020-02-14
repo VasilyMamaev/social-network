@@ -1,18 +1,33 @@
 import React from 'react'
 import classes from './user-info.module.css'
+import Loader from '../../ui/loader/loader'
 
 const UserInfo = (props) => {
+  if (!props.userInfo) {
+    return <Loader/>
+  }
   return (
     <div className={classes.UserInfo}>
       <div>
-        <img src={props.state.avatar} alt="avatar"/>
+        <img src={props.userInfo.photos.large} alt="avatar"/>
         <span>edit</span>
       </div>
       <div>
-       <strong>birtih day<span>{props.state.birth}</span></strong>
-       <strong>city<span>{props.state.city}</span></strong>
-       <strong>education<span>{props.state.education}</span></strong>
-       <strong>WEB-site<span>{props.state.web_site}</span></strong>
+       <strong>About me<span>{props.userInfo.aboutMe}</span></strong>
+       <div>
+        contacts
+        <strong>facebook<span>{props.userInfo.contacts.facebook}</span></strong>
+        <strong>website<span>{props.userInfo.contacts.website}</span></strong>
+        <strong>vk<span>{props.userInfo.contacts.vk}</span></strong>
+        <strong>twitter<span>{props.userInfo.contacts.twitter}</span></strong>
+        <strong>instagram<span>{props.userInfo.contacts.instagram}</span></strong>
+        <strong>youtube<span>{props.userInfo.contacts.youtube}</span></strong>
+        <strong>github<span>{props.userInfo.contacts.github}</span></strong>
+        <strong>mainLink<span>{props.userInfo.contacts.mainLink}</span></strong>
+       </div>
+       <strong>lookingForAJob<span>??</span></strong>
+       <strong>lookingForAJobDescription<span>{props.userInfo.lookingForAJobDescription}</span></strong>
+       <strong>fullName<span>{props.userInfo.fullName}</span></strong>
       </div>
     </div>
   )
