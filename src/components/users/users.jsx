@@ -15,6 +15,8 @@ function Users(props) {
     pages.push(i)
   }
 
+  //console.log(props)
+
   return (
     <div>
       { props.isFetching ? <Loader/> : <>
@@ -31,9 +33,9 @@ function Users(props) {
         { props.users.map(user => <User 
     key={user.id}
     id={user.id}
-    follow={() => props.followHandler(user.id, user.fllowed)}
+    followHandler={props.followHandler}
     avatar={(user.photos.small !== null) ? user.photos.small : noAvatarImg }
-    fllowed={user.fllowed}
+    followed={user.followed}
     name={user.name}
     userStatus={user.status}
     city={'user.location.city'}
