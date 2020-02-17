@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Users from "./users";
 import { showMoreActionCreator, followActionCreator, changePageActionCreator, changePageUsersActionCreator, isFetchingTogglerActionCreator } from "../../redux/users-reducer";
-import axios from 'axios';
+import { usersAPI } from '../../api/api';
 
 class UsersContainer extends Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
       this.props.changeLoadingViewHandler(true)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`, {withCredentials: true}).then((response) => {
-        this.props.addUsersHandler(response.data.items, response.data.totalCount)
+      usersAPI.getUsers(this.props.usersAtPageCount, this.props.currentPage).then((data) => {
+        this.props.addUsersHandler(data.items, data.totalCount)
         this.props.changeLoadingViewHandler(false)
       })
     }
@@ -19,8 +19,8 @@ class UsersContainer extends Component {
   onPageClick = (page) => {
     this.props.changeLoadingViewHandler(true)
     this.props.changePageHandler(page)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersAtPageCount}&page=${this.props.currentPage}`, {withCredentials: true}).then((response) => {
-      this.props.changePageUsersHandler(response.data.items)
+    usersAPI.getUsers(this.props.usersAtPageCount, this.props.currentPage).then((data) => {
+      this.props.changePageUsersHandler(data.items)
       this.props.changeLoadingViewHandler(false)
     })
   }
