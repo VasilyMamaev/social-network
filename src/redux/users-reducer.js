@@ -1,8 +1,10 @@
-const ADD_USERS = 'ADD_USERS'
+import { usersAPI } from "../api/api"
+
 const FOLLOW = 'FOLLOW'
 const ADD_PAGE = 'ADD_PAGE'
 const CHANGE_PAGE_USERS = 'CHANGE_PAGE_USERS'
 const IS_FETCHING_TOGGLER = 'IS_FETCHING_TOGGLER'
+const IS_FOLLOW_TOGGLER = 'IS_FOLLOW_TOGGLER'
 
 const initialState = {
   users: [
@@ -21,17 +23,12 @@ const initialState = {
   totalCount: 0,
   usersAtPageCount: 4,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  followInProgress: []
 }
 
 let usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_USERS':
-      return {
-        ...state,
-        totalCount: action.totalCount,
-        users: [...state.users, ...action.users] 
-      }
     case 'ADD_PAGE':
       return {
         ...state,
@@ -40,12 +37,20 @@ let usersReducer = (state = initialState, action) => {
     case 'CHANGE_PAGE_USERS':
     return {
       ...state,
+      totalCount: action.totalCount,
       users: [...action.users] 
     }
     case 'IS_FETCHING_TOGGLER':
     return {
       ...state,
       isFetching: action.isFetching 
+    }
+    case 'IS_FOLLOW_TOGGLER':
+    return {
+      ...state,
+      followInProgress: action.isFetching 
+        ? [...state.followInProgress, action.userId]
+        : [...state.followInProgress.filter(id => id !== action.userId)]
     }
     case 'FOLLOW':
       return {
@@ -61,11 +66,45 @@ let usersReducer = (state = initialState, action) => {
   }
 }
 
-export const showMoreActionCreator = (users, totalCount) => ({type: ADD_USERS, users, totalCount})
-export const followActionCreator = (userId, follow) => ({type: FOLLOW, follow, id: userId})
+export const followAC = (userId, follow) => ({type: FOLLOW, follow, id: userId})
 export const changePageActionCreator = (page) => ({type: ADD_PAGE, page})
-export const changePageUsersActionCreator = (users) => ({type: CHANGE_PAGE_USERS, users})
-export const isFetchingTogglerActionCreator = (isFetching) => ({type: IS_FETCHING_TOGGLER, isFetching})
+export const changePageUsersActionCreator = (users, totalCount) => ({type: CHANGE_PAGE_USERS, users, totalCount})
+export const isFetchingTogglerAC = (isFetching) => ({type: IS_FETCHING_TOGGLER, isFetching})
+export const isFollowTogglerAC = (isFetching, userId) => ({type: IS_FOLLOW_TOGGLER, isFetching, userId})
+
+export const getUsersTC = (usersAtPageCount, currentPage ) => {
+  return (dispatch) => {
+    dispatch(isFetchingTogglerAC(true))
+    dispatch(changePageActionCreator(currentPage))
+    usersAPI.getUsers(usersAtPageCount, currentPage).then((data) => {
+      dispatch(changePageUsersActionCreator(data.items, data.totalCount))
+      dispatch(isFetchingTogglerAC(false))
+    })
+  }
+}
+
+export const toggleFollowTC = (id, followed) => {
+  return (dispatch) => {
+    if (followed) {
+      dispatch(isFollowTogglerAC(true, id))
+      usersAPI.unfollowUser(id).then((resultCode) => {
+        if (resultCode === 0) {
+          dispatch(isFollowTogglerAC(false, id))
+          dispatch(followAC(id, followed))
+        }
+      })
+    } else {
+      dispatch(isFollowTogglerAC(true, id))
+      usersAPI.followUser(id).then((resultCode) => {
+        if (resultCode === 0) {
+          dispatch(isFollowTogglerAC(false, id))
+          dispatch(followAC(id, followed))
+        }
+      })
+    }
+    
+  }
+}
 
 
 export default usersReducer

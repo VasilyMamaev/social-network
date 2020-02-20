@@ -1,28 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Users from "./users";
-import { showMoreActionCreator, followActionCreator, changePageActionCreator, changePageUsersActionCreator, isFetchingTogglerActionCreator } from "../../redux/users-reducer";
-import { usersAPI } from '../../api/api';
+import { getUsersTC, toggleFollowTC } from "../../redux/users-reducer";
 
 class UsersContainer extends Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
-      this.props.changeLoadingViewHandler(true)
-      usersAPI.getUsers(this.props.usersAtPageCount, this.props.currentPage).then((data) => {
-        this.props.addUsersHandler(data.items, data.totalCount)
-        this.props.changeLoadingViewHandler(false)
-      })
+        this.props.getUsers(this.props.usersAtPageCount, this.props.currentPage)
     }
   }
 
   onPageClick = (page) => {
-    this.props.changeLoadingViewHandler(true)
-    this.props.changePageHandler(page)
-    usersAPI.getUsers(this.props.usersAtPageCount, this.props.currentPage).then((data) => {
-      this.props.changePageUsersHandler(data.items)
-      this.props.changeLoadingViewHandler(false)
-    })
+    this.props.getUsers(this.props.usersAtPageCount, page)
   }
 
   render () {
@@ -35,6 +25,7 @@ class UsersContainer extends Component {
       onPageClick={this.onPageClick}
       isFetching={this.props.isFetching}
       followHandler={this.props.followHandler}
+      followInProgress={this.props.followInProgress}
     />
    ) 
   }
@@ -46,15 +37,13 @@ let mapStateToProps = (state) => {
   totalCount: state.users.totalCount,
   usersAtPageCount: state.users.usersAtPageCount,
   currentPage: state.users.currentPage,
-  isFetching: state.users.isFetching
+  isFetching: state.users.isFetching,
+  followInProgress: state.users.followInProgress
  }
 }
 
 
 export default connect(mapStateToProps, {
-  addUsersHandler: showMoreActionCreator,
-  followHandler: followActionCreator,
-  changePageHandler: changePageActionCreator,
-  changePageUsersHandler: changePageUsersActionCreator,
-  changeLoadingViewHandler: isFetchingTogglerActionCreator
+  followHandler: toggleFollowTC,
+  getUsers: getUsersTC
 }) (UsersContainer)

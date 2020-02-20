@@ -8,14 +8,11 @@ import Loader from '../ui/loader/loader'
 function Users(props) {
 
   let pagesCount = Math.ceil(props.totalCount / props.usersAtPageCount)
-
   let pages = []
 
   for (let i = 1; i <= pagesCount; i++ ) {
     pages.push(i)
   }
-
-  //console.log(props)
 
   return (
     <div>
@@ -36,10 +33,12 @@ function Users(props) {
     followHandler={props.followHandler}
     avatar={(user.photos.small !== null) ? user.photos.small : noAvatarImg }
     followed={user.followed}
+    followInProgress={props.followInProgress}
     name={user.name}
     userStatus={user.status}
     city={'user.location.city'}
     country={'user.location.country'} 
+
   />) }
       </div>
       <div>

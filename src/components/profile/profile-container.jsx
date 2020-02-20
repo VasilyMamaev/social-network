@@ -1,8 +1,7 @@
 import Profile from './profile'
-import { updatePostTextActionCreator, addPostActionCreator, setProfileActionCreator } from '../../redux/profile-reducer'
+import { updatePostTextActionCreator, addPostActionCreator, getProfileTC } from '../../redux/profile-reducer'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import axios from 'axios'
 import { withRouter } from 'react-router-dom'
 
 class ProfileContainer extends Component {
@@ -12,9 +11,7 @@ class ProfileContainer extends Component {
     if (userId === undefined) {
       userId = '2'
     }
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then((response) => {
-      this.props.setProfile(response.data)    
-    })
+    this.props.getProfile(userId)
   }
 
   render () {
@@ -46,8 +43,8 @@ let mapDispatchToProps = (dispatch) => {
     newPostHandler: () => {
       dispatch(addPostActionCreator())
     },
-    setProfile: (userInfo) => {
-      dispatch(setProfileActionCreator(userInfo))
+    getProfile: (userInfo) => {
+      dispatch(getProfileTC(userInfo))
     }
   }
 }

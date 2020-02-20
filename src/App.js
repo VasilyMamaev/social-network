@@ -11,7 +11,7 @@ import UsersContainer from './components/users/users-container'
 import HeaderContainer from './components/header/header-container'
 
 
-function App(props) {
+function App() {
   return (
         <div className={classes.app_wrapper}>  
           <HeaderContainer /> 
