@@ -85,23 +85,15 @@ export const getUsersTC = (usersAtPageCount, currentPage ) => {
 
 export const toggleFollowTC = (id, followed) => {
   return (dispatch) => {
-    if (followed) {
-      dispatch(isFollowTogglerAC(true, id))
-      usersAPI.unfollowUser(id).then((resultCode) => {
-        if (resultCode === 0) {
-          dispatch(isFollowTogglerAC(false, id))
-          dispatch(followAC(id, followed))
-        }
-      })
-    } else {
-      dispatch(isFollowTogglerAC(true, id))
-      usersAPI.followUser(id).then((resultCode) => {
-        if (resultCode === 0) {
-          dispatch(isFollowTogglerAC(false, id))
-          dispatch(followAC(id, followed))
-        }
-      })
-    }
+    dispatch(isFollowTogglerAC(true, id))
+    followed ? usersAPI.unfollowUser(id)
+    : usersAPI.followUser(id)
+    .then((resultCode) => {
+      if (resultCode === 0) {
+        dispatch(isFollowTogglerAC(false, id))
+        dispatch(followAC(id, followed))
+      }
+    })
     
   }
 }

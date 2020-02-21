@@ -3,6 +3,7 @@ import { updatePostTextActionCreator, addPostActionCreator, getProfileTC } from 
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import withUserAuth from '../../hoc/with-user-auth'
 
 class ProfileContainer extends Component {
 
@@ -49,6 +50,8 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-let WithUrlProfileContainer = withRouter(ProfileContainer)
+let WithRedierctProfileContainer = withUserAuth(ProfileContainer)
+
+let WithUrlProfileContainer = withRouter(WithRedierctProfileContainer)
 
 export default connect(mapStateToProps, mapDispatchToProps) (WithUrlProfileContainer)

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 import Users from "./users";
 import { getUsersTC, toggleFollowTC } from "../../redux/users-reducer";
+import withUserAuth from '../../hoc/with-user-auth';
 
 class UsersContainer extends Component {
 
@@ -42,8 +43,9 @@ let mapStateToProps = (state) => {
  }
 }
 
+let WithRedirectUsersContainer = withUserAuth(UsersContainer)
 
 export default connect(mapStateToProps, {
   followHandler: toggleFollowTC,
   getUsers: getUsersTC
-}) (UsersContainer)
+}) (WithRedirectUsersContainer)

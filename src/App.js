@@ -4,11 +4,12 @@ import Navbar from './components/navbar/navbar'
 import News from './components/news/news'
 import Music from './components/music/music'
 //import Settings from './components/settings/settings'
-import {Route} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import ProfileContainer from './components/profile/profile-container'
 import DialogsContainer from './components/dialogs/dialogs-container'
 import UsersContainer from './components/users/users-container'
 import HeaderContainer from './components/header/header-container'
+import Login from './components/login/login'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/News" render={News}/>
             <Route path="/Music" render={Music}/>
             <Route path="/Users" render={() => <UsersContainer />}/>
+            <Route path="/Login" render={() => <Login />}/>
           </div>
         </div>
   );
