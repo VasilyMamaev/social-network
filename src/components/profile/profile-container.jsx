@@ -1,9 +1,10 @@
 import Profile from './profile'
-import { updatePostTextActionCreator, addPostActionCreator, getProfileTC } from '../../redux/profile-reducer'
+import { updatePostTextActionCreator, addPostActionCreator, getProfileTC, getStatusTC } from '../../redux/profile-reducer'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import withUserAuth from '../../hoc/with-user-auth'
+import { compose } from 'redux'
 
 class ProfileContainer extends Component {
 
@@ -13,6 +14,7 @@ class ProfileContainer extends Component {
       userId = '2'
     }
     this.props.getProfile(userId)
+    this.props.getStatus(userId)
   }
 
   render () {
@@ -23,6 +25,7 @@ class ProfileContainer extends Component {
         newPostText = {this.props.newPostText}
         textChangeHandler = {this.props.textChangeHandler}
         newPostHandler = {this.props.newPostHandler}
+        userStatus = {this.props.userStatus}
       />
     )
   }
@@ -32,7 +35,8 @@ let mapStateToProps = (state) => {
   return {
     userPosts: state.profile.userPosts,
     userInfo: state.profile.userInfo,
-    newPostText: state.profile.newPostText
+    newPostText: state.profile.newPostText,
+    userStatus: state.profile.userStatus
   }
 }
 
@@ -46,12 +50,15 @@ let mapDispatchToProps = (dispatch) => {
     },
     getProfile: (userInfo) => {
       dispatch(getProfileTC(userInfo))
+    },
+    getStatus: (userId) => {
+      dispatch(getStatusTC(userId))
     }
   }
 }
 
-let WithRedierctProfileContainer = withUserAuth(ProfileContainer)
-
-let WithUrlProfileContainer = withRouter(WithRedierctProfileContainer)
-
-export default connect(mapStateToProps, mapDispatchToProps) (WithUrlProfileContainer)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withRouter,
+ // withUserAuth
+) (ProfileContainer)

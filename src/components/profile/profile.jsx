@@ -10,7 +10,7 @@ const Profile = (props) => {
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo userInfo={props.userInfo} />
+        <UserInfo userInfo={props.userInfo} userStatus={props.userStatus}/>
       </div>
       <div>
         <input type="text"
