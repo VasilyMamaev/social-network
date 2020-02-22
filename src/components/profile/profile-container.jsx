@@ -3,7 +3,7 @@ import { updatePostTextActionCreator, addPostActionCreator, getProfileTC, getSta
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import withUserAuth from '../../hoc/with-user-auth'
+//import withUserAuth from '../../hoc/with-user-auth'
 import { compose } from 'redux'
 
 class ProfileContainer extends Component {

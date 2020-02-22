@@ -1,10 +1,9 @@
 import React from 'react'
+import LoginForm from './login-form'
 
-function Login() {
+function Login(props) {
   return (
-    <div>
-      <h1>you out of login</h1>
-    </div>
+    <LoginForm/>
   )
 }
 
