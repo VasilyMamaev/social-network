@@ -24,15 +24,14 @@ let dialogsReducer = (state = initialState, action) => {
       let stateCopy = {...state}
       stateCopy.newTextMessage = action.text
       return stateCopy
-    case 'ADD-MESSAGE': {
-      let stateCopy = {...state}
-      stateCopy.messages = [...state.messages]
-      if (state.newTextMessage !== '') {
-        stateCopy.messages.push(state.newTextMessage)
-        stateCopy.newTextMessage = ''
+    case 'ADD-MESSAGE': 
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.text
+        ]
       }
-      return stateCopy
-    }
     default: 
       return state
   }

@@ -1,6 +1,5 @@
 import { usersAPI, userProfileAPI } from "../api/api"
 
-const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT'
 const ADD_POST = 'ADD-POST'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_STATUS = 'SET_STATUS'
@@ -11,7 +10,6 @@ const initialState = {
     'Шёл сегодня с работы домой, на улице темнотища, иду с фонариком. Смотрю, впереди на снегу необычные образования. Пригляделся - следы :) По свежевыпавшему пушистому снегу прошлись, а потом ветер выдул весь снег, оставив только спрессованные ногами следы от ботинок. Впервые такое вижу.',
     'Как-то стороной обходили Поль Бейкери, а оказывается там весьма неплохо.'
   ],
-  newPostText: '',
   userStatus: ''
 }
 
@@ -27,22 +25,14 @@ let profileReducer = (state = initialState, action) => {
           photos: action.userInfo.photos
         }
       }
-    case 'UPDATE-POST-TEXT':
+    case 'ADD-POST':
       return {
         ...state,
-        newPostText: action.text
+        userPosts: [
+          ...state.userPosts,
+          action.textPost.newPostText
+        ]
       }
-    case 'ADD-POST': {
-      let stateCopy = {
-        ...state
-      }
-      stateCopy.userPosts = [...state.userPosts]
-      if (stateCopy.newPostText !== '') {
-        stateCopy.userPosts.push(stateCopy.newPostText)
-        stateCopy.newPostText = ''
-      }
-      return stateCopy
-    }
     case 'SET_STATUS': 
       return {
         ...state,
@@ -53,13 +43,10 @@ let profileReducer = (state = initialState, action) => {
   }
 }
 
-export let updatePostTextActionCreator = (text) => ({
-  type: UPDATE_POST_TEXT,
-  text
-})
-export let addPostActionCreator = (text) => ({
+
+export let addPostActionCreator = (textPost) => ({
   type: ADD_POST,
-  text
+  textPost
 })
 export let setProfileActionCreator = (userInfo) => ({
   type: SET_PROFILE,

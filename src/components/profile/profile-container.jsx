@@ -1,5 +1,5 @@
 import Profile from './profile'
-import { updatePostTextActionCreator, addPostActionCreator, getProfileTC, getStatusTC } from '../../redux/profile-reducer'
+import { addPostActionCreator, getProfileTC, getStatusTC } from '../../redux/profile-reducer'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
@@ -42,11 +42,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    textChangeHandler: (evt) => {
-      dispatch(updatePostTextActionCreator(evt.target.value))
-    },
-    newPostHandler: () => {
-      dispatch(addPostActionCreator())
+    newPostHandler: (textPost) => {
+      dispatch(addPostActionCreator(textPost))
     },
     getProfile: (userInfo) => {
       dispatch(getProfileTC(userInfo))
