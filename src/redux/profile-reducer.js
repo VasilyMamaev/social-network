@@ -73,5 +73,13 @@ export let getStatusTC = (userId) => {
   }
 }
 
+export let updateStatusTC = (status) => {
+  return (dispatch) => {
+    userProfileAPI.updateStatus(status).then(() => {
+      dispatch(setStatusAC(status))
+    })
+  }
+}
+
 
 export default profileReducer

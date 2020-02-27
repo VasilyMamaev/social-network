@@ -14,7 +14,7 @@ const UserInfo = (props) => {
         <span>edit</span>
       </div>
       <div className={classes.UserInfoText}>
-        <Status userId={props.userInfo.userId} userStatus={props.userStatus}/>
+        <Status userId={props.userInfo.userId} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
         <strong>About me<span>{props.userInfo.aboutMe}</span></strong>
         <div>
           contacts

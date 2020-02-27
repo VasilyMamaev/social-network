@@ -1,9 +1,9 @@
 import Profile from './profile'
-import { addPostActionCreator, getProfileTC, getStatusTC } from '../../redux/profile-reducer'
+import { addPostActionCreator, getProfileTC, getStatusTC, updateStatusTC } from '../../redux/profile-reducer'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-//import withUserAuth from '../../hoc/with-user-auth'
+import withUserAuth from '../../hoc/with-user-auth'
 import { compose } from 'redux'
 
 class ProfileContainer extends Component {
@@ -11,7 +11,7 @@ class ProfileContainer extends Component {
   componentDidMount() {
     let userId = this.props.match.params.userId
     if (userId === undefined) {
-      userId = '2'
+      userId = this.props.userId
     }
     this.props.getProfile(userId)
     this.props.getStatus(userId)
@@ -26,6 +26,7 @@ class ProfileContainer extends Component {
         textChangeHandler = {this.props.textChangeHandler}
         newPostHandler = {this.props.newPostHandler}
         userStatus = {this.props.userStatus}
+        updateStatus= {this.props.updateStatus}
       />
     )
   }
@@ -33,6 +34,7 @@ class ProfileContainer extends Component {
 
 let mapStateToProps = (state) => {
   return {
+    userId: state.auth.userId,
     userPosts: state.profile.userPosts,
     userInfo: state.profile.userInfo,
     newPostText: state.profile.newPostText,
@@ -50,6 +52,9 @@ let mapDispatchToProps = (dispatch) => {
     },
     getStatus: (userId) => {
       dispatch(getStatusTC(userId))
+    },
+    updateStatus: (status) => {
+      dispatch(updateStatusTC(status))
     }
   }
 }
@@ -57,5 +62,5 @@ let mapDispatchToProps = (dispatch) => {
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withRouter,
- // withUserAuth
+  withUserAuth
 ) (ProfileContainer)

@@ -14,11 +14,18 @@ export class Status extends Component {
       })
     }
   }
-
-  statusOnEditToggler() {
+  
+  activateStatusEditToggler() {
     this.setState({
-      statusOnEdit: !this.state.statusOnEdit
+      statusOnEdit: true
     })
+  }
+
+  deactivateStatusEditToggler() {
+    this.setState({
+      statusOnEdit: false
+    })
+    this.props.updateStatus(this.state.userStatus)
   }
 
   onChangeStatus(evt) {
@@ -28,19 +35,19 @@ export class Status extends Component {
   }
 
   render() {
-    
+
     return (
       <div>
         {
           this.state.statusOnEdit 
           ? <input 
               autoFocus={true} 
-              onBlur={this.statusOnEditToggler.bind(this)} 
+              onBlur={this.deactivateStatusEditToggler.bind(this)} 
               value={this.state.userStatus} 
               type='text'
               onChange={(evt) => {this.onChangeStatus(evt)}}
             />
-          : <span onDoubleClick={this.statusOnEditToggler.bind(this)}>{this.props.userStatus ? this.props.userStatus : 'enter status...'}</span>
+          : <span onDoubleClick={this.activateStatusEditToggler.bind(this)}>{this.props.userStatus ? this.props.userStatus : 'enter status...'}</span>
         }
       </div>
     )

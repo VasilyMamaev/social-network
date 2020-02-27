@@ -15,7 +15,7 @@ const Profile = (props) => {
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo userInfo={props.userInfo} userStatus={props.userStatus}/>
+        <UserInfo userInfo={props.userInfo} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
       </div>
       <div>
         <UserPostsReduxForm onSubmit={postHandler}/>
