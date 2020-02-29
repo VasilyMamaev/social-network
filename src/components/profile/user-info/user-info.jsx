@@ -1,7 +1,8 @@
 import React from 'react'
 import classes from './user-info.module.css'
 import Loader from '../../ui/loader/loader'
-import Status from './status/status'
+//import Status from './status/status'
+import StatusHooks from './status/status-hooks'
 
 const UserInfo = (props) => {
   if (!props.userInfo) {
@@ -14,7 +15,7 @@ const UserInfo = (props) => {
         <span>edit</span>
       </div>
       <div className={classes.UserInfoText}>
-        <Status userId={props.userInfo.userId} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
+        <StatusHooks userId={props.userInfo.userId} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
         <strong>About me<span>{props.userInfo.aboutMe}</span></strong>
         <div>
           contacts
