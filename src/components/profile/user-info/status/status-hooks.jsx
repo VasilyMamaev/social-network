@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const StatusHooks = (props) => {
 
   const [editMode, setEditMode] = useState(false)
-  const [status, setStatus] = useState(props.userStatus)
-
+  
   const setEditModeOn = () => {
     setEditMode(true)
   }
@@ -14,9 +13,18 @@ const StatusHooks = (props) => {
     props.updateStatus(status)
   }
 
+
+  const [status, setStatus] = useState(props.userStatus)
+
   const onStatusChange = (evt) => {
     setStatus(evt.target.value)
   }
+
+
+  useEffect(() => {
+    setStatus(props.userStatus)
+  }, [props.userStatus])
+
 
   return (
     <div>
