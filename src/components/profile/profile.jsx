@@ -3,10 +3,10 @@ import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
 import UserPostsReduxForm from './user-posts/user-posts-form'
 
-const Profile = (props) => {
+const Profile = React.memo((props) => {
   let Posts = props.userPosts.map((post, i) => {
-  return <div key={i} className={classes.userPosts}>{ post }</div>
-  })
+  return <div key={i} className={classes.userPosts}>{ post.message }</div>
+  }).reverse()
 
   const postHandler = (value) => {
     props.newPostHandler(value)
@@ -25,6 +25,6 @@ const Profile = (props) => {
       </div>
     </body>
   )
-}
+})
 
 export default Profile
