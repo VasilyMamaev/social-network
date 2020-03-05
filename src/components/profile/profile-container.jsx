@@ -8,7 +8,7 @@ import { compose } from 'redux'
 
 class ProfileContainer extends Component {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.userId
@@ -18,6 +18,16 @@ class ProfileContainer extends Component {
     }
     this.props.getProfile(userId)
     this.props.getStatus(userId)
+  }
+
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.refreshProfile()
+    }
   }
 
   render () {
