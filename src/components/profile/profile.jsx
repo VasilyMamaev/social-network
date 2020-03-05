@@ -15,10 +15,16 @@ const Profile = React.memo((props) => {
   return (
     <body className={classes.Profile}>
       <div>
-        <UserInfo userInfo={props.userInfo} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
+        <UserInfo 
+          userInfo={props.userInfo}
+          userStatus={props.userStatus}
+          updateStatus={props.updateStatus}
+          iserId={props.iserId}
+          saveAvatarImg={props.saveAvatarImg}
+         />
       </div>
       <div>
-        <UserPostsReduxForm onSubmit={postHandler}/>
+        { props.iserId ? null : <UserPostsReduxForm onSubmit={postHandler}/> }
       </div>
       <div>
         { Posts }

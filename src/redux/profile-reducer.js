@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST'
 const DELETE_POST = 'DELETE_POST'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const SAVE_AVATAR_IMG_SUCCESS = 'SAVE_AVATAR_IMG_SUCCESS'
 
 const initialState = {
   userInfo: null,
@@ -44,6 +45,14 @@ let profileReducer = (state = initialState, action) => {
         ...state,
         userStatus: action.userStatus
       }
+    case 'SAVE_AVATAR_IMG_SUCCESS':
+      return {
+        ...state,
+        userInfo: {
+          ...state.userInfo,
+          photos: action.img
+        }
+      }
     default:
       return state
   }
@@ -65,6 +74,10 @@ export let setProfileActionCreator = (userInfo) => ({
 export let setStatusAC = (userStatus) => ({
   type: SET_STATUS,
   userStatus
+})
+export let saveAvatarImgSuccessAC = (img) => ({
+  type: SAVE_AVATAR_IMG_SUCCESS,
+  img
 })
 
 export let getProfileTC = (userId) => {
@@ -90,6 +103,14 @@ export let updateStatusTC = (status) => {
     })
   }
 }
+
+export let saveAvatarImgTC = (img) => async (dispatch) => {
+    let response = await userProfileAPI.saveAvatarImg(img)
+
+    if(response.data.resultCode === 0) {
+      dispatch(saveAvatarImgSuccessAC(response.data.data.photos))
+    }
+  }
 
 
 export default profileReducer

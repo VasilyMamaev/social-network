@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import classes from './paginator.module.css'
 
-const Paginator = React.memo(({totalCount, usersAtPageCount, currentPage, onPageClick, portionSize}) => {
+const Paginator = React.memo(({totalCount, usersAtPageCount, currentPage, onPageClick, portionSize, pagePortion}) => {
   
   let pagesCount = Math.ceil(totalCount / usersAtPageCount)
   let pages = []
@@ -11,7 +11,7 @@ const Paginator = React.memo(({totalCount, usersAtPageCount, currentPage, onPage
   }
 
   const portionCount = Math.ceil(pagesCount / portionSize)
-  const [portionNumber, setPortionNumber] = useState(1)
+  const [portionNumber, setPortionNumber] = useState(pagePortion)
   const leftPortionPage = (portionNumber - 1) * portionSize + 1
   const rightPortionPage = leftPortionPage + portionSize
 
@@ -24,7 +24,7 @@ const Paginator = React.memo(({totalCount, usersAtPageCount, currentPage, onPage
         return <span 
           key={page}
           className={page === currentPage ? classes.selectedPage : null}
-          onClick={() => {onPageClick(page)}}
+          onClick={() => {onPageClick(page, portionNumber)}}
         >{page}</span>
         })
       }

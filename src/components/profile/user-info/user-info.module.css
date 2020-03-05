@@ -4,7 +4,35 @@
   grid-template-columns: 1fr 5fr;
 }
 
+.UserInfoAvatar {
+  position: relative;
+}
+
+.UserInfoAvatar input {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.UserInfoAvatar label {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  top: 0;
+  background:#C4C4C4;
+  color: rgba(0, 0, 0, 1);
+  opacity: 40%;
+}
+
 .UserInfoText {
   display: flex;
   flex-direction: column;
+}
+
+.userContacts {
+  
 }

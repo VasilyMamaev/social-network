@@ -9,12 +9,12 @@ class UsersContainer extends Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
-        this.props.getUsers(this.props.usersAtPageCount, this.props.currentPage)
+        this.props.getUsers(this.props.usersAtPageCount, this.props.currentPage, this.props.pagePortion)
     }
   }
 
-  onPageClick = (page) => {
-    this.props.getUsers(this.props.usersAtPageCount, page)
+  onPageClick = (page, pagePortion) => {
+    this.props.getUsers(this.props.usersAtPageCount, page, pagePortion)
   }
 
   render () {
@@ -28,6 +28,7 @@ class UsersContainer extends Component {
       isFetching={this.props.isFetching}
       followHandler={this.props.followHandler}
       followInProgress={this.props.followInProgress}
+      pagePortion={this.props.pagePortion}
     />
    ) 
   }
@@ -39,6 +40,7 @@ let mapStateToProps = (state) => {
   totalCount: state.users.totalCount,
   usersAtPageCount: state.users.usersAtPageCount,
   currentPage: state.users.currentPage,
+  pagePortion: state.users.currentPagePortion,
   isFetching: state.users.isFetching,
   followInProgress: state.users.followInProgress
  }

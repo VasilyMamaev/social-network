@@ -23,6 +23,7 @@ const initialState = {
   totalCount: 0,
   usersAtPageCount: 4,
   currentPage: 1,
+  currentPagePortion: 1,
   isFetching: false,
   followInProgress: []
 }
@@ -32,7 +33,8 @@ let usersReducer = (state = initialState, action) => {
     case 'ADD_PAGE':
       return {
         ...state,
-        currentPage: action.page
+        currentPage: action.page,
+        currentPagePortion: action.pagePortion
       }
     case 'CHANGE_PAGE_USERS':
     return {
@@ -67,15 +69,15 @@ let usersReducer = (state = initialState, action) => {
 }
 
 export const followAC = (userId, follow) => ({type: FOLLOW, follow, id: userId})
-export const changePageActionCreator = (page) => ({type: ADD_PAGE, page})
+export const changePageActionCreator = (page, pagePortion) => ({type: ADD_PAGE, page, pagePortion})
 export const changePageUsersActionCreator = (users, totalCount) => ({type: CHANGE_PAGE_USERS, users, totalCount})
 export const isFetchingTogglerAC = (isFetching) => ({type: IS_FETCHING_TOGGLER, isFetching})
 export const isFollowTogglerAC = (isFetching, userId) => ({type: IS_FOLLOW_TOGGLER, isFetching, userId})
 
-export const getUsersTC = (usersAtPageCount, currentPage ) => {
+export const getUsersTC = (usersAtPageCount, currentPage, pagePortion) => {
   return (dispatch) => {
     dispatch(isFetchingTogglerAC(true))
-    dispatch(changePageActionCreator(currentPage))
+    dispatch(changePageActionCreator(currentPage, pagePortion))
     usersAPI.getUsers(usersAtPageCount, currentPage).then((data) => {
       dispatch(changePageUsersActionCreator(data.items, data.totalCount))
       dispatch(isFetchingTogglerAC(false))

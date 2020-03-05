@@ -1,6 +1,6 @@
 import React from 'react'
 import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
-import classes from './users.module.css'
+//import classes from './users.module.css'
 import User from './user/user'
 import Loader from '../ui/loader/loader'
 import Paginator from '../ui/paginator/paginator'
@@ -18,6 +18,7 @@ function Users(props) {
         currentPage={props.currentPage}
         onPageClick={props.onPageClick}
         portionSize={5}
+        pagePortion={props.pagePortion}
       />
       <div>
         { props.users.map(user => <User 
