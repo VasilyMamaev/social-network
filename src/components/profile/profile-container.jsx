@@ -1,5 +1,5 @@
 import Profile from './profile'
-import { addPostActionCreator, getProfileTC, getStatusTC, updateStatusTC, saveAvatarImgTC } from '../../redux/profile-reducer'
+import { addPostActionCreator, getProfileTC, getStatusTC, updateStatusTC, saveAvatarImgTC, saveUserContactsTC } from '../../redux/profile-reducer'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
@@ -42,6 +42,7 @@ class ProfileContainer extends Component {
         updateStatus = {this.props.updateStatus}
         iserId = {this.props.match.params.userId}
         saveAvatarImg = {this.props.saveAvatarImg}
+        updateUserContacts = {this.props.updateUserContacts}
       />
     )
   }
@@ -73,6 +74,9 @@ let mapDispatchToProps = (dispatch) => {
     },
     saveAvatarImg: (img) => {
       dispatch(saveAvatarImgTC(img))
+    },
+    updateUserContacts: (formData) => {
+      dispatch(saveUserContactsTC(formData))
     }
   }
 }

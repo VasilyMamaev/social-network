@@ -21,6 +21,7 @@ const Profile = React.memo((props) => {
           updateStatus={props.updateStatus}
           iserId={props.iserId}
           saveAvatarImg={props.saveAvatarImg}
+          updateUserContacts={props.updateUserContacts}
          />
       </div>
       <div>

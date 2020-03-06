@@ -1,7 +1,7 @@
 .UserInfo {
   display: grid;
-
   grid-template-columns: 1fr 5fr;
+  height: 50vh;
 }
 
 .UserInfoAvatar {
@@ -28,11 +28,7 @@
   opacity: 40%;
 }
 
-.UserInfoText {
+.UserContacts {
   display: flex;
   flex-direction: column;
-}
-
-.userContacts {
-  
 }

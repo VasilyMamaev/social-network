@@ -5,6 +5,7 @@ const DELETE_POST = 'DELETE_POST'
 const SET_PROFILE = 'SET_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 const SAVE_AVATAR_IMG_SUCCESS = 'SAVE_AVATAR_IMG_SUCCESS'
+const SET_USER_CONTACTS = 'SET_USER_CONTACTS'
 
 const initialState = {
   userInfo: null,
@@ -53,6 +54,14 @@ let profileReducer = (state = initialState, action) => {
           photos: action.img
         }
       }
+    case 'SET_USER_CONTACTS':
+      return {
+        ...state,
+        userInfo: {
+          ...action.formData,
+          contacts: action.formData.contacts
+        }
+      }
     default:
       return state
   }
@@ -78,6 +87,10 @@ export let setStatusAC = (userStatus) => ({
 export let saveAvatarImgSuccessAC = (img) => ({
   type: SAVE_AVATAR_IMG_SUCCESS,
   img
+})
+export let setUserContactsAC = (formData) => ({
+  type: SET_USER_CONTACTS,
+  formData
 })
 
 export let getProfileTC = (userId) => {
@@ -111,6 +124,14 @@ export let saveAvatarImgTC = (img) => async (dispatch) => {
       dispatch(saveAvatarImgSuccessAC(response.data.data.photos))
     }
   }
+
+export let saveUserContactsTC = (formData) => async (dispatch) => {
+  let response = await userProfileAPI.saveProfile(formData)
+
+  if (response.data.resultCode === 0) {
+    dispatch(setUserContactsAC(formData))
+  }
+}
 
 
 export default profileReducer

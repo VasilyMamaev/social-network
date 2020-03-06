@@ -23,25 +23,29 @@ class App extends Component {
 
   render() {
     return (
-      <div className={classes.app_wrapper}>  
-        <HeaderContainer /> 
-        <Navbar />
-        <div className={classes.app_wrapper_content}>
-          <Route path="/Profile/:userId?" render={() => <ProfileContainer />}/>
-          <Route path="/Dialogs" render={() => <DialogsContainer />}/>
-          <Route path="/News" render={News}/>
-          <Route path="/Music" render={Music}/>
-          <Route path="/Users" render={() => <UsersContainer />}/>
-          <Route path="/Login" render={() => <Login />}/>
-        </div>
-      </div>
+      <>
+      { this.props.history.location.pathname === '/login' 
+        ? <Route path="/Login" render={() => <Login />}/> 
+        : <div className={classes.app_wrapper}>  
+            <HeaderContainer /> 
+            <Navbar />
+            <div className={classes.app_wrapper_content}>
+              <Route path="/Profile/:userId?" render={() => <ProfileContainer />}/>
+              <Route path="/Dialogs" render={() => <DialogsContainer />}/>
+              <Route path="/News" render={News}/>
+              <Route path="/Music" render={Music}/>
+              <Route path="/Users" render={() => <UsersContainer />}/>
+            </div>
+          </div>
+      }   
+      </>
     )
   }
 }
 
 
 const mapStateToProps = (state) => ({
-  initialized: state.app.initalizingSuccess
+  initialized: state.app.initalizingSuccess,
 })
 
 export default compose(
