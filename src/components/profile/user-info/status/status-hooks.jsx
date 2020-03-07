@@ -28,7 +28,7 @@ const StatusHooks = (props) => {
 
   return (
     <div>
-      {
+      { props.isAuth ? 
         editMode
         ? <input 
             autoFocus={true} 
@@ -38,6 +38,7 @@ const StatusHooks = (props) => {
             onChange={(evt) => {onStatusChange(evt)}}
           />
         : <span onDoubleClick={setEditModeOn}>{props.userStatus ? props.userStatus : 'enter status...'}</span>
+        : <span >{props.userStatus}</span>
       }
     </div>
   )

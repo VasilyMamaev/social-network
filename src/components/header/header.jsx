@@ -9,7 +9,7 @@ const Header = (props) => {
       { 
       props.isAuth ?
       <span>{props.login}--<button onClick={props.logoutHandler}>logout</button></span>
-      : <NavLink to={'/Login'}>login</NavLink>
+      : <NavLink to={'/login'}>login</NavLink>
       }
     </header>
   )

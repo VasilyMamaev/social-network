@@ -20,12 +20,13 @@ const Profile = React.memo((props) => {
           userStatus={props.userStatus}
           updateStatus={props.updateStatus}
           iserId={props.iserId}
+          isAuth={props.isAuth}
           saveAvatarImg={props.saveAvatarImg}
           updateUserContacts={props.updateUserContacts}
          />
       </div>
       <div>
-        { props.iserId ? null : <UserPostsReduxForm onSubmit={postHandler}/> }
+        { (!props.iserId && props.isAuth ) ? <UserPostsReduxForm onSubmit={postHandler}/> : null }
       </div>
       <div>
         { Posts }

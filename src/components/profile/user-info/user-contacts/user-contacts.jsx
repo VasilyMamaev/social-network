@@ -15,7 +15,7 @@ const UserContacts = React.memo((props) => {
     await props.updateUserContacts(formData)
     setEditMode(false)
   }
-
+  
   if (editMode) {
     return (
       <UserContactsReduxForm onSubmit={onSubmit} initialValues={props.userInfo}/>
@@ -23,7 +23,7 @@ const UserContacts = React.memo((props) => {
   } else {
     return (
       <div>
-        <button onClick={() => setEditMode(true)}>editMode</button>
+        { !props.isAuth ? null : <button onClick={() => setEditMode(true)}>editMode</button> }
         <div>About me<span>{props.userInfo.aboutMe}</span></div>
         contacts:<tr/>
         <div className={classes.contacts}>

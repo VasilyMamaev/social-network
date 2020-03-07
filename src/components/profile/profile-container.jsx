@@ -41,6 +41,7 @@ class ProfileContainer extends Component {
         userStatus = {this.props.userStatus}
         updateStatus = {this.props.updateStatus}
         iserId = {this.props.match.params.userId}
+        isAuth = {this.props.isAuth}
         saveAvatarImg = {this.props.saveAvatarImg}
         updateUserContacts = {this.props.updateUserContacts}
       />
@@ -51,6 +52,7 @@ class ProfileContainer extends Component {
 let mapStateToProps = (state) => {
   return {
     userId: state.auth.userId,
+    isAuth: state.auth.isAuth,
     userPosts: state.profile.userPosts,
     userInfo: state.profile.userInfo,
     newPostText: state.profile.newPostText,
