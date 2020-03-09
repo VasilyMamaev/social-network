@@ -23,6 +23,10 @@ const LoginForm = (props) => {
           <Field component={Input} type='checkbox' name='rememberMe'/>Remember me
         </div>
         { props.error && <span>{props.error}</span> }
+
+        { props.captchaUrl && <img src={props.captchaUrl} alt='captcha'/>}
+        { props.captchaUrl && <Field component={Input} validate={required} placeholder='enter captcha' name='captcha'/>}
+
         <button>Login</button>
       </form>
       </div>

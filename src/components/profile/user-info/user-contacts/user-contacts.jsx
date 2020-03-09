@@ -3,7 +3,7 @@ import classes from './user-contacts.module.css'
 import { useState } from 'react'
 import UserContactsReduxForm from './user-contats-form/user-contacts-form'
 
-const UserContacts = React.memo((props) => {
+const UserContacts = (props) => {
 
   let [editMode, setEditMode] = useState(false)
 
@@ -18,7 +18,7 @@ const UserContacts = React.memo((props) => {
   
   if (editMode) {
     return (
-      <UserContactsReduxForm onSubmit={onSubmit} initialValues={props.userInfo}/>
+      <UserContactsReduxForm onSubmit={onSubmit} initialValues={props.userInfo} contacts={props.userInfo.contacts}/>
     )
   } else {
     return (
@@ -35,6 +35,6 @@ const UserContacts = React.memo((props) => {
       </div>
     )
   }
-})
+}
 
 export default UserContacts

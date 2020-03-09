@@ -11,21 +11,19 @@ const UserContactsForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <button>submit</button>
-      <div>About me<Field component={Input} validate={[maxLength]} placeholder='About me' name='aboutMe'/></div>
+  { props.error ? <div>{props.error}</div> : null}
+      <div>About me<Field component={Input} validate={maxLength} placeholder='About me' name='aboutMe'/></div>
       <div className={classes.contacts}>
         contacts<tr/>
-        <div>facebook<Field component={Input} validate={maxLength} placeholder='facebook' name='contacts.facebook'/></div>
-        <div>website<Field component={Input} validate={[maxLength]} placeholder='website' name='contacts.website'/></div>
-        <div>vk<Field component={Input} validate={[maxLength]} placeholder='vk' name='contacts.vk'/></div>
-        <div>twitter<Field component={Input} validate={[maxLength]} placeholder='twitter' name='contacts.twitter'/></div>
-        <div>instagram<Field component={Input} validate={[maxLength]} placeholder='instagram' name='contacts.instagram'/></div>
-        <div>youtube<Field component={Input} validate={[maxLength]} placeholder='youtube' name='contacts.youtube'/></div>
-        <div>github<Field component={Input} validate={[maxLength]} placeholder='github' name='contacts.github'/></div>
-        <div>mainLink<Field component={Input} validate={[maxLength]} placeholder='mainLink' name='contacts.mainLink'/></div>
+        {Object.keys(props.contacts).map(key => {
+            return <div key={key}>{key}
+                    <Field component={Input} validate={maxLength} placeholder={key} name={'contacts.' + key}/>
+                   </div>
+        })}
       </div>
       <div>lookingForAJob<Field component={Input} type='checkbox' name='lookingForAJob'/></div>
-      <div>lookingForAJobDescription<Field component={Textarea} validate={[maxLength]} placeholder='lookingForAJobDescription' name='lookingForAJobDescription'/></div>
-      <div>fullName<Field component={Input} validate={[maxLength]} placeholder='fullName' name='fullName'/></div>
+      <div>lookingForAJobDescription<Field component={Textarea} validate={maxLength} placeholder='lookingForAJobDescription' name='lookingForAJobDescription'/></div>
+      <div>fullName<Field component={Input} validate={maxLength} placeholder='fullName' name='fullName'/></div>
     </form>
   )
 }
