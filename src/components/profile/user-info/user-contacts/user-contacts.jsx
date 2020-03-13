@@ -8,7 +8,11 @@ const UserContacts = (props) => {
   let [editMode, setEditMode] = useState(false)
 
   const contacts = Object.keys(props.userInfo.contacts).map(key => {
-  return <div>{key}<span>{props.userInfo.contacts[key]}</span></div>
+  return  <div className={classes.contactItem}>
+            <a href={props.userInfo.contacts[key]}>
+              <img src={require(`../../../../assets/images/pofile-links/${key}${props.userInfo.contacts[key] ? '' : '-disabled'}.svg`)} alt={`link to ${key}`}></img>
+            </a>
+          </div>
   })
 
   const onSubmit = async (formData) => {
@@ -22,16 +26,19 @@ const UserContacts = (props) => {
     )
   } else {
     return (
-      <div>
-        { !props.isAuth ? null : <button onClick={() => setEditMode(true)}>editMode</button> }
-        <div>About me<span>{props.userInfo.aboutMe}</span></div>
-        contacts:<tr/>
-        <div className={classes.contacts}>
-          {contacts}
+      <div className={classes.UserContacts}>
+        { !props.isAuth ? null : <button onClick={() => setEditMode(true)}>edit profile</button> }
+        <div className={classes.userInfoItem}><b>About me:</b><span>{props.userInfo.aboutMe}</span></div>
+
+        <div className={classes.userInfoItem}><b>Looking for a job:</b><span>{props.userInfo.lookingForAJob ? 'yes' : 'no' }</span></div>
+        <div className={classes.userInfoItem}><b>Looking for a job description:</b><span>{props.userInfo.lookingForAJobDescription}</span></div>
+        <div className={classes.userInfoItem}><b>Full name:</b><span>{props.userInfo.fullName}</span></div>
+        <div className={classes.userInfoItem}>
+          <b>contacts:</b>
+          <div className={classes.contacts}>
+            {contacts}
+          </div>
         </div>
-        <div>lookingForAJob<span>{props.userInfo.contacts.lookingForAJob ? 'yes' : 'no' }</span></div>
-        <div>lookingForAJobDescription<span>{props.userInfo.lookingForAJobDescription}</span></div>
-        <div>fullName<span>{props.userInfo.fullName}</span></div>
       </div>
     )
   }

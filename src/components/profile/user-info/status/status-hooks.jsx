@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import classes from './status.module.css'
 
 const StatusHooks = (props) => {
 
@@ -27,18 +28,25 @@ const StatusHooks = (props) => {
 
 
   return (
-    <div>
+    <div className={classes.Status}>
       { props.isAuth ? 
-        editMode
-        ? <input 
+        editMode ?
+          <input 
             autoFocus={true} 
             onBlur={setEditModeOff} 
             value={status} 
             type='text'
             onChange={(evt) => {onStatusChange(evt)}}
           />
-        : <span onDoubleClick={setEditModeOn}>{props.userStatus ? props.userStatus : 'enter status...'}</span>
-        : <span >{props.userStatus}</span>
+          : props.userStatus ?
+            <div className={classes.loggedStatus}>
+              <span onDoubleClick={setEditModeOn}>{props.userStatus}</span>
+              <span className={classes.statusHint}>double click for change status</span>
+            </div>
+            : <span onDoubleClick={setEditModeOn}>{'double click for enter status...'}</span>
+            
+            
+        : <span>{props.userStatus}</span>
       }
     </div>
   )

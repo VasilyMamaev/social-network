@@ -2,10 +2,14 @@ import React from 'react'
 import classes from './profile.module.css'
 import UserInfo from './user-info/user-info'
 import UserPostsReduxForm from './user-posts/user-posts-form'
+import likeImg from '../../assets/images/post-like.svg'
 
 const Profile = React.memo((props) => {
   let Posts = props.userPosts.map((post, i) => {
-  return <div key={i} className={classes.userPosts}>{ post.message }</div>
+  return <div key={i} className={classes.userPosts}>
+          <div>{ post.message }</div>
+          <span><img src={likeImg} alt='like'></img>{post.likesCount}</span>
+        </div>
   }).reverse()
 
   const postHandler = (value) => {
@@ -25,6 +29,7 @@ const Profile = React.memo((props) => {
           updateUserContacts={props.updateUserContacts}
          />
       </div>
+      <div className={classes.blueLine}></div>
       <div>
         { (!props.iserId && props.isAuth ) ? <UserPostsReduxForm onSubmit={postHandler}/> : null }
       </div>

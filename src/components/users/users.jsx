@@ -1,6 +1,6 @@
 import React from 'react'
 import noAvatarImg from '../../assets/images/no-avatar-img.jpg'
-//import classes from './users.module.css'
+import classes from './users.module.css'
 import User from './user/user'
 import Loader from '../ui/loader/loader'
 import Paginator from '../ui/paginator/paginator'
@@ -9,7 +9,7 @@ import Paginator from '../ui/paginator/paginator'
 function Users(props) {
 
   return (
-    <div>
+    <div className={classes.Users}>
       { props.isFetching ? <Loader/> 
       : <>
       <Paginator 
@@ -17,10 +17,10 @@ function Users(props) {
         usersAtPageCount={props.usersAtPageCount}
         currentPage={props.currentPage}
         onPageClick={props.onPageClick}
-        portionSize={5}
+        portionSize={6}
         pagePortion={props.pagePortion}
       />
-      <div>
+      <div className={classes.usersList}>
         { props.users.map(user => <User 
           key={user.id}
           id={user.id}
@@ -35,9 +35,9 @@ function Users(props) {
           />) 
         }
       </div>
-      <div>
+      {/* <div>
         <button onClick={() => props.addUsersHandler()}>Show more</button>
-      </div>
+      </div> */}
       </>
       }
     </div>

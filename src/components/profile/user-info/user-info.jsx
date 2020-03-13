@@ -23,18 +23,19 @@ const UserInfo = (props) => {
         {
           (!props.iserId && props.isAuth) ? <>
               <input id="load avatar" name="load avatar" type="file" onChange={onAvatarImgSelected}/>
-              <label for="load avatar">click to download</label>
+              <label for="load avatar">change avatar</label>
             </>
             : null
         }
         
       </div>
       <div className={classes.UserContacts}>
+        <strong>{props.userInfo.fullName}</strong>
         {
           props.iserId ? null 
           : <StatusHooks isAuth={props.isAuth} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
         }
-        <UserContacts isAuth={props.isAuth} className={classes.UserContacts} userInfo={props.userInfo} updateUserContacts={props.updateUserContacts} iserId={props.iserId}/>
+        <UserContacts isAuth={props.isAuth}  userInfo={props.userInfo} updateUserContacts={props.updateUserContacts} iserId={props.iserId}/>
       </div>
     </div>
   )

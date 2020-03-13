@@ -1,5 +1,5 @@
 import { userAuthAPI, securityAPI } from "../api/api"
-import { stopSubmit } from "redux-form"
+import { stopSubmit, change } from "redux-form"
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'GET_CAPTCHA_URL_SUCCESS'
@@ -52,6 +52,7 @@ export const loginTC = (email, password, rememberMe, captcha) => {
         dispatch(getAuthUserDataTC())
       } else {
         if (response.data.resultCode === 10) {
+          dispatch(change('login', 'captcha', ''))
           dispatch(getCaptchaTC())
         }
         let message = response.data.messages.length > 0 ? response.data.messages[0] : 'some error'

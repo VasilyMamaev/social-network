@@ -20,7 +20,7 @@ export function Input({input, meta, child, ...props}) {
   return (
     <div className={classes.formControl + ' ' + (hasError ? classes.error : '')}>
       <input {...input} {...props}></input><tr/>
-      <span>{meta.error}</span>
+      {hasError ? <span>{meta.error}</span> : null}
     </div>
   )
 }

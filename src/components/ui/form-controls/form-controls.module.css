@@ -3,5 +3,11 @@
 }
 
 .formControl.error input{
+  position: relative;
   border: 2px solid red;
+}
+
+.formControl.error span{
+  color: red;
+  position: absolute;
 }

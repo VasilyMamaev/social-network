@@ -19,7 +19,10 @@
 }
 
 .LoginForm form {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background: #213152;
   width: 337px;
   height: 325px;
@@ -30,6 +33,19 @@
 .LoginForm input {
   width: 287px;
   height: 59px;
+}
+
+.LoginForm .rememberMe input {
+  width: auto;
+  height: auto;
+}
+
+.rememberMe {
+  display: flex;
+  flex-direction: row;
+  width: 287px;
+  color: white;
+  justify-content: flex-end;
 }
 
 .LoginForm button {

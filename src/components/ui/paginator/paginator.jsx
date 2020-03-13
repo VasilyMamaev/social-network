@@ -18,18 +18,18 @@ const Paginator = React.memo(({totalCount, usersAtPageCount, currentPage, onPage
   return (
     <div>
       {portionNumber > 1 ?
-      <button onClick={() => {setPortionNumber(portionNumber - 1)}}>previous</button>
+      <button className={classes.pageBtn} onClick={() => {setPortionNumber(portionNumber - 1)}}>previous</button>
       : null}
       { pages.filter(p => p >= leftPortionPage && p <= rightPortionPage).map((page) => {
         return <span 
           key={page}
-          className={page === currentPage ? classes.selectedPage : null}
+          className={page === currentPage ? classes.selectedPage : classes.unselectedPage}
           onClick={() => {onPageClick(page, portionNumber)}}
-        >{page}</span>
+        >{page},</span>
         })
       }
       {portionCount > portionNumber ?
-      <button onClick={() => {setPortionNumber(portionNumber + 1)}}>next</button>
+      <button className={classes.pageBtn} onClick={() => {setPortionNumber(portionNumber + 1)}}>next</button>
       : null}
     </div>
   )

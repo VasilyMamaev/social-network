@@ -21,7 +21,7 @@ const initialState = {
     // }
   ],
   totalCount: 0,
-  usersAtPageCount: 4,
+  usersAtPageCount: 6,
   currentPage: 1,
   currentPagePortion: 1,
   isFetching: false,

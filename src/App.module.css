@@ -1,6 +1,6 @@
 .app_wrapper {
   display: grid;
-  width: 96vw;
+  width: 98vw;
   height: 96vh;
   margin: 0 auto;
   padding: 10px;
@@ -9,7 +9,7 @@
   "h h"
   "n c";
 
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 80px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
 
